@@ -1,35 +1,24 @@
-# pymongo-api
+# «Мобильный мир» — спринт 4
 
-## Как запустить
+| Задание | Файлы |
+|---|---|
+| 1, 5, 6. Архитектура | [Схема draw.io](architecture.drawio), последняя вкладка — итог |
+| 2. Шардирование | [mongo-sharding](mongo-sharding/README.md) |
+| 3. Репликация | [mongo-sharding-repl](mongo-sharding-repl/README.md) |
+| 4. Кеширование | [sharding-repl-cache](sharding-repl-cache/README.md) |
 
-Запускаем mongodb и приложение
+## Запуск итогового стенда
 
-```shell
+```bash
+cd sharding-repl-cache
 docker compose up -d
+docker compose logs -f mongo-init
 ```
 
-Заполняем mongodb данными
+Дождитесь `Initialization finished`. Приложение: http://localhost:8080, Swagger: http://localhost:8080/docs. Имя коллекции — `helloDoc`.
 
-```shell
-./scripts/mongo-init.sh
-```
+В базе 2000 документов, два шарда по три узла и Redis. Команды проверки — в README каждого этапа. Запускайте один этап одновременно.
 
-## Как проверить
+Gateway, Consul и CDN показаны только на схеме, как требуется в заданиях 5–6.
 
-### Если вы запускаете проект на локальной машине
-
-Откройте в браузере http://localhost:8080
-
-### Если вы запускаете проект на предоставленной виртуальной машине
-
-Узнать белый ip виртуальной машины
-
-```shell
-curl --silent http://ifconfig.me
-```
-
-Откройте в браузере http://<ip виртуальной машины>:8080
-
-## Доступные эндпоинты
-
-Список доступных эндпоинтов, swagger http://<ip виртуальной машины>:8080/docs
+Остановка: `docker compose down`. Команда `docker compose down -v` также удаляет тестовые данные.
